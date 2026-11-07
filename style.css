@@ -1,0 +1,778 @@
+/* ============================================================
+   style.css — все стили главной страницы «Грампластинка»
+   ============================================================ */
+
+/* ===== СБРОС И БАЗА ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --burgundy: #5a1220;
+  --burgundy-dark: #3d0b16;
+  --brown: #2a1a12;
+  --brown-deep: #1a0f0a;
+  --cream: #f4e9d8;
+  --cream-soft: #e8d9c0;
+  --gold: #d4a340;
+  --gold-light: #e8c274;
+  --gold-dark: #a67c26;
+  --text: #f4e9d8;
+  --text-muted: #c9b89c;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--text);
+  background-color: var(--brown-deep);
+  background-image:
+    radial-gradient(ellipse at top, rgba(90, 18, 32, 0.55), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(166, 124, 38, 0.18), transparent 55%);
+  background-attachment: fixed;
+  min-width: 320px;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2rem, 1.3rem + 3.6vw, 3.75rem); }
+h2 { font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem); }
+h3 { font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem); }
+
+p { color: var(--text-muted); }
+
+a { color: var(--gold-light); text-decoration: none; transition: color 0.25s ease; }
+a:hover { color: var(--gold); }
+
+/* Фокус — заметная золотая обводка */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ===== КОНТЕЙНЕР ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ===== ОБЩИЕ КНОПКИ ===== */
+.btn {
+  display: inline-block;
+  padding: 0.85em 1.6em;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--brown-deep);
+  box-shadow: 0 6px 20px rgba(212, 163, 64, 0.32);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 163, 64, 0.5);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  color: var(--brown-deep);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--gold-light);
+  border-color: var(--gold-dark);
+}
+.btn-ghost:hover {
+  background: rgba(212, 163, 64, 0.12);
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(26, 15, 10, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(212, 163, 64, 0.25);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.85rem 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Логотип */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.logo:hover { color: var(--gold-light); }
+
+.logo-vinyl {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--gold) 0 12%, var(--brown-deep) 13% 22%, #2b2b2b 23% 40%, #1a1a1a 41% 60%, #2b2b2b 61% 80%, var(--brown-deep) 81%);
+  box-shadow: inset 0 0 0 1px rgba(212, 163, 64, 0.4);
+  flex-shrink: 0;
+}
+
+/* Навигация — flex-wrap на мобильных, аккуратный ряд на десктопе */
+.main-nav {
+  order: 3;
+  flex-basis: 100%;
+  width: 100%;
+}
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  list-style: none;
+  justify-content: center;
+  padding: 0.4rem 0 0.2rem;
+  border-top: 1px solid rgba(212, 163, 64, 0.15);
+}
+.main-nav a {
+  display: block;
+  padding: 0.4rem 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  position: relative;
+}
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+.main-nav a:hover { color: var(--cream); }
+.main-nav a:hover::after { width: 100%; }
+
+.header-cta { margin-left: auto; padding: 0.7em 1.3em; font-size: 0.95rem; }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+.hero-inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  color: var(--cream);
+  margin-bottom: 1.1rem;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--gold-light), var(--gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--gold);
+}
+.hero-sub {
+  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
+  max-width: 52ch;
+  margin-bottom: 1.8rem;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+/* Визуал — виниловая пластинка на CSS */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.vinyl {
+  width: clamp(220px, 60vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+  background:
+    repeating-radial-gradient(circle at center,
+      #0d0d0d 0 2px,
+      #1c1c1c 2px 4px,
+      #111 4px 6px,
+      #222 6px 8px);
+  box-shadow:
+    0 0 0 4px #0a0a0a,
+    0 0 0 6px rgba(212, 163, 64, 0.35),
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(0, 0, 0, 0.8);
+  animation: spin 22s linear infinite;
+}
+.vinyl::before {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
+  box-shadow: inset 0 0 0 2px rgba(212, 163, 64, 0.35);
+}
+.vinyl::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 6%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px rgba(212, 163, 64, 0.8);
+}
+.vinyl-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.09) 40deg,
+    transparent 80deg,
+    transparent 200deg,
+    rgba(255, 255, 255, 0.06) 240deg,
+    transparent 280deg);
+  pointer-events: none;
+  animation: spin 22s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .vinyl, .vinyl-shine { animation: none; }
+}
+
+/* ===== СЕКЦИИ ===== */
+section { padding: clamp(2.8rem, 7vw, 5rem) 0; scroll-margin-top: 80px; }
+
+.section-head {
+  max-width: 60ch;
+  margin-bottom: 2.5rem;
+}
+.section-head h2 { color: var(--cream); margin-bottom: 0.6rem; }
+.section-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+
+/* ===== О МАГАЗИНЕ ===== */
+.about-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.feature {
+  background: linear-gradient(160deg, rgba(90, 18, 32, 0.35), rgba(42, 26, 18, 0.6));
+  border: 1px solid rgba(212, 163, 64, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 163, 64, 0.5);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+.feature-icon {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--gold);
+}
+.feature h3 { color: var(--cream); margin-bottom: 0.4rem; }
+.feature p { font-size: 0.95rem; }
+
+/* ===== ФОТО В КАРТОЧКАХ «О НАС» (дополнение к .feature) ===== */
+/* Карточка — колонка: текст сверху, фото прижато к низу на десктопе,
+   чтобы карточки в трёх колонках выглядели одинаково по высоте.
+   Существующие правила .feature и .feature:hover не изменяются. */
+.feature {
+  display: flex;
+  flex-direction: column;
+}
+.feature-media {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 800 / 500;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin-top: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 163, 64, 0.25);
+}
+@media (min-width: 768px) {
+  .feature-media {
+    margin-top: auto;
+  }
+}
+/* Новый эффект наведения дополняет transform / border-color / box-shadow
+   из .feature:hover и не конфликтует с ними */
+@media (prefers-reduced-motion: no-preference) {
+  .feature-media {
+    transition: filter 0.25s ease;
+  }
+  .feature:hover .feature-media {
+    filter: brightness(1.06);
+  }
+}
+
+/* ===== КОЛЛЕКЦИЯ ===== */
+.collection-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+.genre-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem;
+  overflow: hidden;
+  border: 1px solid rgba(212, 163, 64, 0.22);
+  background: linear-gradient(150deg, var(--brown) 0%, var(--burgundy-dark) 100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.genre-card::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 163, 64, 0.35), transparent 70%);
+  transition: transform 0.4s ease;
+}
+.genre-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.genre-card:hover::before { transform: scale(1.4); }
+.genre-icon { width: 2.1rem; height: 2.1rem; display: block; margin-bottom: 0.5rem; color: var(--gold); }
+.genre-card h3 { color: var(--cream); position: relative; }
+.genre-card p { font-size: 0.9rem; position: relative; margin-top: 0.3rem; }
+
+/* ===== УСЛУГИ ===== */
+.services-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.service {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.4rem;
+  border-radius: 14px;
+  background: rgba(42, 26, 18, 0.65);
+  border-left: 4px solid var(--gold);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.service:hover {
+  background: rgba(90, 18, 32, 0.45);
+  transform: translateX(4px);
+}
+.service-icon { width: 1.8rem; height: 1.8rem; flex-shrink: 0; color: var(--gold); }
+.service h3 { color: var(--cream); margin-bottom: 0.3rem; }
+.service p { font-size: 0.92rem; }
+
+/* ===== ОТЗЫВЫ ===== */
+.reviews-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.review {
+  background: linear-gradient(160deg, rgba(244, 233, 216, 0.06), rgba(90, 18, 32, 0.25));
+  border: 1px solid rgba(212, 163, 64, 0.22);
+  border-radius: 16px;
+  padding: 1.6rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.review:hover { border-color: var(--gold); transform: translateY(-3px); }
+.review-stars { color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.7rem; }
+.review-text { color: var(--cream-soft); font-style: italic; margin-bottom: 1rem; }
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+}
+.review-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--gold), var(--burgundy));
+  color: var(--brown-deep);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.review-name { color: var(--cream); font-weight: 600; }
+.review-role { color: var(--text-muted); font-size: 0.82rem; }
+
+/* ===== КОНТАКТЫ ===== */
+.contact-wrap {
+  display: grid;
+  gap: 2rem;
+}
+.contact-info { display: grid; gap: 1.1rem; }
+.contact-item {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+.contact-item .ci-icon {
+  width: 44px; height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(212, 163, 64, 0.12);
+  border: 1px solid rgba(212, 163, 64, 0.28);
+  flex-shrink: 0;
+  color: var(--gold);
+}
+.ci-icon svg { width: 22px; height: 22px; }
+.contact-item h3 {
+  font-size: 1rem;
+  color: var(--cream);
+  margin-bottom: 0.15rem;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+}
+.contact-item p, .contact-item a { font-size: 0.95rem; color: var(--text-muted); }
+.contact-item a:hover { color: var(--gold); }
+
+/* Форма */
+.contact-form {
+  background: linear-gradient(160deg, rgba(90, 18, 32, 0.4), rgba(26, 15, 10, 0.7));
+  border: 1px solid rgba(212, 163, 64, 0.25);
+  border-radius: 18px;
+  padding: clamp(1.4rem, 4vw, 2rem);
+}
+.contact-form h3 { color: var(--cream); margin-bottom: 1.2rem; }
+.form-field { margin-bottom: 1rem; }
+.form-field label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--cream-soft);
+  margin-bottom: 0.4rem;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--cream);
+  background: rgba(26, 15, 10, 0.75);
+  border: 1px solid rgba(212, 163, 64, 0.3);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: #8a7a63; }
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--gold);
+  background: rgba(26, 15, 10, 0.95);
+  outline: none;
+}
+.form-field textarea { resize: vertical; min-height: 110px; }
+.contact-form .btn { width: 100%; margin-top: 0.4rem; }
+.form-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.8rem; text-align: center; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: rgba(15, 8, 5, 0.9);
+  border-top: 1px solid rgba(212, 163, 64, 0.2);
+  padding: 2.2rem 0 1.6rem;
+  margin-top: 2rem;
+}
+.footer-inner {
+  display: grid;
+  gap: 1.5rem;
+  text-align: center;
+}
+.footer-brand {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  justify-content: center;
+  list-style: none;
+}
+.footer-links a { color: var(--text-muted); font-size: 0.9rem; }
+.footer-links a:hover { color: var(--gold); }
+.footer-social {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.footer-social a {
+  width: 40px; height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(212, 163, 64, 0.1);
+  border: 1px solid rgba(212, 163, 64, 0.3);
+  color: var(--gold);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.footer-social a svg { width: 20px; height: 20px; }
+.footer-social a:hover { background: rgba(212, 163, 64, 0.25); transform: translateY(-3px); }
+.footer-copy {
+  font-size: 0.8rem;
+  color: #8a7a63;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(212, 163, 64, 0.12);
+}
+
+/* ===== АДАПТИВ: ПЛАНШЕТ (≥768px) ===== */
+@media (min-width: 768px) {
+  .header-inner { flex-wrap: nowrap; padding: 0.9rem 1.5rem; }
+  .main-nav { order: 0; flex-basis: auto; width: auto; margin: 0 auto; }
+  .main-nav ul { border-top: none; padding: 0; }
+  .header-cta { margin-left: 0; }
+
+  .hero-inner { grid-template-columns: 1.15fr 0.85fr; gap: 3rem; }
+
+  .about-grid { grid-template-columns: repeat(3, 1fr); }
+  .collection-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .contact-wrap { grid-template-columns: 1fr 1.1fr; align-items: start; }
+
+  .footer-inner { grid-template-columns: 1fr auto; text-align: left; align-items: center; }
+  .footer-brand { margin-bottom: 0; }
+  .footer-center { text-align: center; }
+  .footer-social { justify-content: flex-end; }
+  .footer-copy { grid-column: 1 / -1; text-align: center; }
+}
+
+/* ===== АДАПТИВ: ДЕСКТОП (≥1200px) ===== */
+@media (min-width: 1200px) {
+  .collection-grid { grid-template-columns: repeat(4, 1fr); }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-inner { gap: 5rem; }
+}
+
+/* Уважение к reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* ===== ТОНАРМ / ИГЛА НА ПЛАСТИНКЕ ===== */
+/* Тонарм собран из 4 span'ов вокруг точки-пивота (.tonearm —
+   нулевая точка-якорь в правом верхнем секторе пластинки).
+   .vinyl целиком вращается (animation: spin), поэтому .tonearm
+   компенсирует это обратным вращением: визуально тонарм стоит
+   на месте, пока пластинка крутится под ним. Все размеры заданы
+   через var(--v) = ширину .vinyl, поэтому тонарм пропорционально
+   масштабируется на любом экране и не влияет на layout (нет CLS). */
+.tonearm {
+  /* ширина .vinyl — единая база всех размеров тонарма */
+  --v: clamp(220px, 60vw, 380px);
+  /* длина стержня от пивота до головки */
+  --arm: calc(var(--v) * 0.6);
+  position: absolute;
+  top: 5%;
+  left: 70%;
+  width: 0;
+  height: 0;
+  z-index: 3; /* выше .vinyl-shine */
+  pointer-events: none;
+  /* Компенсация вращения .vinyl: тонарм остаётся неподвижным.
+     Вращать нужно вокруг ТОГО ЖЕ центра, что и .vinyl, иначе
+     обратное вращение не погасит вращение родителя. Центр
+     пластинки относительно якоря .tonearm (left 70%, top 5%)
+     находится на (-0.2 * --v, +0.45 * --v). */
+  transform-origin: calc(var(--v) * -0.2) calc(var(--v) * 0.45);
+  animation: spin-reverse 22s linear infinite;
+}
+@keyframes spin-reverse { to { transform: rotate(-360deg); } }
+
+/* База тонарма — тёмный круг с золотой обводкой, центр на пивоте */
+.tonearm-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--v) * 0.06);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: var(--brown-deep);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(212, 163, 64, 0.35);
+}
+
+/* Пивот — маленькая золотая ось вращения поверх базы */
+.tonearm-pivot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--v) * 0.026);
+  min-width: 6px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--gold-light), var(--gold-dark));
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Стержень — тонкая золотая линия от пивота вниз.
+   transform-origin — точка пивота: вращение поднимает/опускает головку.
+   Поднятое положение: rotate(-25deg) — игла у края пластинки, «в воздухе». */
+.tonearm-stick {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: var(--arm);
+  transform: translateX(-50%) rotate(-25deg);
+  transform-origin: top center;
+  background: linear-gradient(to bottom, var(--gold-light), var(--gold-dark));
+  border-radius: 2px;
+  transition: transform 0.6s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* Головка с иглой — на конце стержня. Вращается вокруг того же
+   пивота (transform-origin вычислен через var(--arm)), поэтому
+   движется жёстко вместе со стержнем. Цвет --gold-light контрастен
+   на тёмном виниле (соотношение заметно выше 3:1). */
+.tonearm-head {
+  position: absolute;
+  top: calc(var(--arm) - 8px);
+  left: 0;
+  width: calc(var(--v) * 0.032);
+  height: calc(var(--v) * 0.05);
+  transform: translateX(-50%) rotate(-25deg);
+  transform-origin: 50% calc(8px - var(--arm));
+  background: var(--gold-light);
+  border-radius: 4px 4px 6px 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  transition: transform 0.6s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* Hover: стержень опускается до rotate(-15deg) — головка касается
+   бороздок (~35–40% ширины пластинки от центра, вне лейбла и оси).
+   cubic-bezier с перелётом даёт мягкую «пружинку» при опускании;
+   возврат идёт через тот же transition (свойство — только transform). */
+.vinyl:hover .tonearm-stick {
+  transform: translateX(-50%) rotate(-15deg);
+}
+.vinyl:hover .tonearm-head {
+  transform: translateX(-50%) rotate(-15deg);
+  /* «пружинка» иглы после касания: затухающее покачивание ±1.5deg */
+  animation: tonearm-bounce 0.4s ease-out 0.6s;
+}
+
+@keyframes tonearm-bounce {
+  0%, 100% { transform: translateX(-50%) rotate(-15deg); }
+  25%      { transform: translateX(-50%) rotate(-16.5deg); }
+  55%      { transform: translateX(-50%) rotate(-13.8deg); }
+  80%      { transform: translateX(-50%) rotate(-15.4deg); }
+}
+
+/* Блик-тень от иглы на бороздке: проявляется, когда игла коснулась */
+.tonearm::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--arm) * 0.28);
+  top: calc(var(--arm) * 1.02);
+  width: calc(var(--v) * 0.11);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 163, 64, 0.85), transparent);
+  border-radius: 1px;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.6s ease 0.45s;
+}
+.vinyl:hover .tonearm::after { opacity: 1; }
+
+/* Reduced motion: тонарм статично опущен, без transition и animation */
+@media (prefers-reduced-motion: reduce) {
+  .tonearm { animation: none; }
+  .tonearm-stick,
+  .tonearm-head {
+    transition: none;
+    transform: translateX(-50%) rotate(-15deg);
+  }
+  .tonearm-head { animation: none; }
+  .tonearm::after { opacity: 1; transition: none; }
+}
+
+/* < 480px: отдельный scale не нужен — все размеры тонарма заданы
+   через var(--v) (ширину .vinyl), поэтому он пропорционально
+   уменьшается вместе с пластинкой и не перекрывает её.
+   На узких экранах лишь утончаем линии. */
+@media (max-width: 479px) {
+  .tonearm-base { border-width: 1.5px; }
+  .tonearm-stick { width: 2px; }
+}
